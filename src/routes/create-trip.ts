@@ -2,18 +2,9 @@ import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 import { prisma } from '../lib/prisma';
-import dayjs from 'dayjs';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import 'dayjs/locale/pt-br';
 import { getMailClient } from './mail';
 import nodemailer from 'nodemailer';
-
-dayjs.extend(localizedFormat);
-dayjs.locale('pt-br');
-
-function formatDate(date: Date): string {
-  return dayjs(date).format('LL');
-}
+import { dayjs, formatDate } from '../lib/dayjs';
 
 export async function createTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/trips', {
@@ -90,7 +81,7 @@ export async function createTrip(app: FastifyInstance) {
             <a href="${confirmationLink}">Confirmar viagem</a>
           </p>
           
-          <p>Caso você não saiba do que se trata esse e-mail, apenas ignore esse e-mail.</p>
+          <p>Caso você não saiba do que se trata esse e-mail, apenas ignore-o.</p>
         </div>
       `.trim()
     });
@@ -102,5 +93,3 @@ export async function createTrip(app: FastifyInstance) {
     };
   });
 }
-
-// curl -X POST localhost:3333/trips -H "Content-Type: application/json" -d '{ "destination": "Miami", "starts_at": "2024-12-20", "ends_at": "2024-12-27" }'
