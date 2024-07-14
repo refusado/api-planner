@@ -3,7 +3,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 import 'dayjs/locale/pt-br';
 import { prisma } from '../lib/prisma';
-import { getMailClient } from './mail';
+import { getMailClient } from '../lib/mail';
 import { formatDate } from '../lib/dayjs';
 import nodemailer from 'nodemailer';
 
