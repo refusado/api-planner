@@ -1,11 +1,11 @@
+import 'dayjs/locale/pt-br';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
-import 'dayjs/locale/pt-br';
-import { prisma } from '../lib/prisma';
-import { getMailClient } from '../lib/mail';
-import { formatDate } from '../lib/dayjs';
 import nodemailer from 'nodemailer';
+import z from 'zod';
+import { formatDate } from '../lib/dayjs';
+import { getMailClient } from '../lib/mail';
+import { prisma } from '../lib/prisma';
 
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get('/trips/:tripId/confirm', {
@@ -37,7 +37,9 @@ export async function confirmTrip(app: FastifyInstance) {
       participants
     } = trip;
 
-    if (is_comfirmed) return reply.redirect(`http://localhost:3000/trips/${id}`);
+    const tripLink = `http://localhost:3000/trips/${id}`;
+
+    if (is_comfirmed) return reply.redirect(tripLink);
 
     await prisma.trip.update({
       where: { id },
@@ -48,7 +50,7 @@ export async function confirmTrip(app: FastifyInstance) {
     
     Promise.all(
       participants.map(async ({ email, id }) => {
-        const confirmationLink = `http://localhost:3333/trips/${tripId}/confirm/${id}`;
+        const confirmationLink = `http://localhost:3333/participant/${id}/confirm`;
 
         const message = await mail.sendMail({
           from: {
@@ -76,6 +78,6 @@ export async function confirmTrip(app: FastifyInstance) {
       })
     );
 
-    return reply.redirect(`http://localhost:3000/trips/${id}`);
+    return reply.redirect(tripLink);
   });
 }

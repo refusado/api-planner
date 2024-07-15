@@ -56,11 +56,10 @@ export async function createTrip(app: FastifyInstance) {
         }
       }
     });
-
-    const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm`;
-  
+    
     const mail = await getMailClient();
-
+    const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm`;
+    
     const message = await mail.sendMail({
       from: {
         name: 'Planner Contact',
