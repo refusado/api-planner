@@ -3,7 +3,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 import { prisma } from '../lib/prisma';
 
-export async function createLlink(app: FastifyInstance) {
+export async function createLink(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/trips/:tripId/links', {
     schema: {
       body: z.object({
