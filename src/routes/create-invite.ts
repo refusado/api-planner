@@ -6,6 +6,7 @@ import { ClientError } from "../errors/client-error";
 import { formatDate } from "../lib/dayjs";
 import { getMailClient } from "../lib/mail";
 import { prisma } from '../lib/prisma';
+import env from "../env";
 
 export async function createInvite(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/trips/:tripId/participants', {
@@ -35,7 +36,7 @@ export async function createInvite(app: FastifyInstance) {
     });
 
     const mail = await getMailClient();
-    const confirmationLink = `http://localhost:3333/participants/${participant.id}/confirm`;
+    const confirmationLink = `${env.API_BASE_URL}/participants/${participant.id}/confirm`;
 
     const message = await mail.sendMail({
       from: {
@@ -43,18 +44,18 @@ export async function createInvite(app: FastifyInstance) {
         address: 'contact@plann.er',
       },
       to: email,
-      subject: `Confirme sua presença na viagem para ${destination} em ${formatDate(starts_at)}`,
+      subject: `Confirm your attendance to ${destination} in ${formatDate(starts_at)}`,
       html: `
         <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6;">
-          <p>Você foi convidado para participar de uma viagem para <strong>${destination}</strong> nas datas de <strong>${formatDate(starts_at)}</strong> até <strong>${formatDate(ends_at)}</strong>.</p>
+          <p>You have been invited to join a trip to <strong>${destination}</strong>, from <strong>${formatDate(starts_at)}</strong> to <strong>${formatDate(ends_at)}</strong>.</p>
           
-          <p>Para confirmar sua presença nesta viagem, clique no link abaixo:</p>
+          <p>To confirm your attendance for this trip, click the link below:</p>
           
           <p>
-            <a href="${confirmationLink}">Confirmar presença.</a>
+            <a href="${confirmationLink}">Confirm attendance.</a>
           </p>
           
-          <p>Caso você não saiba do que se trata esse e-mail, apenas ignore-o.</p>
+          <p>If you are not aware of this email, simply ignore it.</p>
         </div>
       `.trim()
     });
