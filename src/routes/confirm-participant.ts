@@ -2,6 +2,7 @@ import 'dayjs/locale/pt-br';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
+import { ClientError } from "../errors/client-error";
 import { prisma } from '../lib/prisma';
 
 export async function confirmParticipant(app: FastifyInstance) {
@@ -18,7 +19,7 @@ export async function confirmParticipant(app: FastifyInstance) {
       where: { id: participantId }
     });
 
-    if (!participant) throw new Error('Participant not found');
+    if (!participant) throw new ClientError('Participant not found');
 
     const { is_confirmed, trip_id } = participant;
 
