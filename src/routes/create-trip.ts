@@ -18,9 +18,15 @@ export async function createTrip(app: FastifyInstance) {
         owner_name: z.string(),
         owner_email: z.string().email(),
         emails_to_invite: z.array(z.string().email())
-      })
+      }),
+      response: {
+        201: z.object({
+          createdTrip: z.string().uuid()
+        })
+      }
     }
-  }, async (request) => {
+  },
+  async (request, reply) => {
     const {
       destination,
       starts_at,
@@ -88,9 +94,9 @@ export async function createTrip(app: FastifyInstance) {
     });
 
     console.log(nodemailer.getTestMessageUrl(message));
-
-    return {
+    
+    return reply.status(201).send({
       createdTrip: trip.id
-    };
+    });
   });
 }

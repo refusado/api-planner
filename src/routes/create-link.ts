@@ -13,10 +13,15 @@ export async function createLink(app: FastifyInstance) {
       }),
       params: z.object({
         tripId: z.string().uuid()
-      })
+      }),
+      response: {
+        201: z.object({
+          createdLink: z.string().uuid()
+        })
+      }
     }
   },
-  async (request) => {
+  async (request, reply) => {
     const { tripId } = request.params;
     const { title, url } = request.body;
 
@@ -30,7 +35,8 @@ export async function createLink(app: FastifyInstance) {
       data: { title, url, trip_id: tripId }
     });
 
-    return { createdLink : link.id }
-
+    return reply.status(201).send({
+      createdLink: link.id
+    });
   })
 }

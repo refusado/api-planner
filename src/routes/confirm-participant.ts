@@ -13,7 +13,8 @@ export async function confirmParticipant(app: FastifyInstance) {
         participantId: z.string().uuid()
       })
     }
-  }, async (request, reply) => {
+  },
+  async (request, reply) => {
     const { participantId } = request.params;
 
     const participant = await prisma.participant.findUnique({

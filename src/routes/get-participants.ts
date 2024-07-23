@@ -14,7 +14,6 @@ export async function getParticipants(app: FastifyInstance) {
   }, async (request) => {
     const { tripId: trip_id } = request.params;
 
-    // ordernar atividades para receber as mais recentes primeiro / ordem crescente
     const trip = await prisma.trip.findUnique({
       where: { id: trip_id },
       include: {

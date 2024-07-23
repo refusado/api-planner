@@ -16,10 +16,15 @@ export async function createInvite(app: FastifyInstance) {
       }),
       params: z.object({
         tripId: z.string().uuid()
-      })
+      }),
+      response: {
+        201: z.object({
+          createdParticipant: z.string().uuid()
+        })
+      }
     }
   },
-  async (request) => {
+  async (request, reply) => {
     const { tripId } = request.params;
     const { email } = request.body;
 
@@ -62,7 +67,8 @@ export async function createInvite(app: FastifyInstance) {
 
     console.log(nodemailer.getTestMessageUrl(message));
 
-
-    return { createdParticipant: participant.id }
+    return reply.status(201).send({
+      createdParticipant: participant.id
+    });
   })
 }
