@@ -1,7 +1,11 @@
 import cors from '@fastify/cors';
 import fastify from 'fastify';
+import env from './env';
+import createDocumentation from './swagger';
+
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import { ErrorHandler } from './error-handler';
+
 import { confirmParticipant } from './routes/confirm-participant';
 import { confirmTrip } from './routes/confirm-trip';
 import { createActivity } from './routes/create-activity';
@@ -14,9 +18,10 @@ import { getParticipant } from './routes/get-participant';
 import { getParticipants } from './routes/get-participants';
 import { getTrip } from './routes/get-trip';
 import { updateTrip } from './routes/update-trip';
-import env from './env';
 
 const app = fastify();
+
+createDocumentation(app);
 
 app.register(cors, {
   origin: '*'
