@@ -1,10 +1,8 @@
+import { ClientError } from "@/errors/client-error";
 import { FastifyInstance } from "fastify";
 import { ZodError } from "zod";
-import { ClientError } from "@/errors/client-error";
 
-type FastifyErrorHandler = FastifyInstance['errorHandler'];
-
-export const ErrorHandler: FastifyErrorHandler = (error, request, reply) => {
+export default ((error, request, reply) => {
   if (error instanceof ZodError) {
     return reply.status(400).send({
       message: 'Data sent is not in a valid format.',
@@ -38,4 +36,4 @@ export const ErrorHandler: FastifyErrorHandler = (error, request, reply) => {
 
   // uncaught errors
   return reply.status(500).send({ message: 'Internal server error' });
-}
+}) satisfies FastifyInstance['errorHandler'];

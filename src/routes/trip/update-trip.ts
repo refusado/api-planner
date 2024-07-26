@@ -1,9 +1,9 @@
-import { FastifyInstance } from 'fastify';
-import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
 import { ClientError } from "@/errors/client-error";
 import { dayjs } from '@/lib/dayjs';
 import { prisma } from '@/lib/prisma';
+import { FastifyInstance } from 'fastify';
+import { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
 
 export async function updateTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put('/trips/:tripId', {
@@ -17,7 +17,8 @@ export async function updateTrip(app: FastifyInstance) {
         tripId: z.string().uuid()
       })
     }
-  }, async (request) => {
+  },
+  async (request) => {
     const { destination, starts_at, ends_at } = request.body;
     const { tripId: trip_id } = request.params;
 

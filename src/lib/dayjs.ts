@@ -10,4 +10,4 @@ const formatDate = (date: Date): string => dayjs(date).format('LL');
 export {
   dayjs,
   formatDate
-}
+};

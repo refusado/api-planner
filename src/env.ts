@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 
 // validating env variables with zod
 const envSchema = z.object({

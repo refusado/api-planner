@@ -3,7 +3,7 @@ import fastify from 'fastify';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 
 import env from '@/env';
-import { ErrorHandler } from '@/error-handler';
+import errorHandler from '@/error-handler';
 import routes from '@/routes';
 import createDocumentation from '@/swagger';
 
@@ -14,10 +14,11 @@ app.register(cors, {
 
 createDocumentation(app);
 
+app.setErrorHandler(errorHandler);
+
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
-app.setErrorHandler(ErrorHandler);
 app.register(routes);
 
 app.get('/', (_, reply) => reply.send({

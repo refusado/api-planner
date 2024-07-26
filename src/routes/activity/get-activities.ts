@@ -1,9 +1,9 @@
-import { FastifyInstance } from 'fastify';
-import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
 import { ClientError } from "@/errors/client-error";
 import { dayjs } from '@/lib/dayjs';
 import { prisma } from '@/lib/prisma';
+import { FastifyInstance } from 'fastify';
+import { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
 
 export async function getActivity(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get('/trips/:tripId/activities', {
@@ -12,7 +12,8 @@ export async function getActivity(app: FastifyInstance) {
         tripId: z.string().uuid()
       })
     }
-  }, async (request) => {
+  },
+  async (request) => {
     const { tripId: trip_id } = request.params;
 
     const trip = await prisma.trip.findUnique({
