@@ -28,7 +28,7 @@ app.get('/', (_, reply) => reply.send({
   })
 );
 
-app.listen({ port: env.PORT }).then(() => {
+app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log(`Server is running on port ${env.PORT}`);
   console.log(`URL: ${env.API_BASE_URL}`);
 });
