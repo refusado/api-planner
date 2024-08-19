@@ -29,6 +29,7 @@
     "@fastify/swagger": "^8.15.0",
     "@fastify/swagger-ui": "^4.0.1",
     "@prisma/client": "^5.16.1",
+    "@scalar/fastify-api-reference": "^1.25.4",
     "dayjs": "^1.11.11",
     "fastify": "^4.28.1",
     "fastify-type-provider-zod": "^2.0.0",
