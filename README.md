@@ -15,11 +15,11 @@ This project is a REST API built with Node.js, it provides endpoints for managin
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/planner.git
+   git clone https://github.com/refusado/api-planner.git
    ```
 2. Install dependencies:
    ```bash
-   cd planner
+   cd api-planner
    npm install
    ```
 3. Create a `.env` file based on the `.env.example` file, providing the necessary environment variables.
@@ -60,4 +60,4 @@ This project is a REST API built with Node.js, it provides endpoints for managin
 
 #### API Documentation
 
-API documentation is available at `/documentation` endpoint.
+API documentation is available at `/documentation` endpoint (if you prefer swagger UI, check out the old version at `/documentation-old`).
