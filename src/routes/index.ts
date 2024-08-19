@@ -19,15 +19,15 @@ import { getLinks } from './link/get-link';
 async function routes(app: FastifyInstance) {
   // trip routes
   app.register(createTrip);
+  app.register(getTrip);
   app.register(confirmTrip);
   app.register(updateTrip);
-  app.register(getTrip);
 
   // participant routes
   app.register(confirmParticipant);
-  app.register(getParticipants);
-  app.register(getParticipant);
   app.register(createInvite);
+  app.register(getParticipant);
+  app.register(getParticipants);
 
   // activity routes
   app.register(createActivity);

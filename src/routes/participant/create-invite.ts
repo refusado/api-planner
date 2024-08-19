@@ -11,6 +11,8 @@ import { z } from 'zod';
 export async function createInvite(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/trips/:tripId/participants', {
     schema: {
+      summary: 'Creates a new invite and sends the invite via email',
+      tags: ['participant'],
       body: z.object({
         email: z.string().email()
       }),

@@ -8,6 +8,8 @@ import { z } from 'zod';
 export async function updateTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put('/trips/:tripId', {
     schema: {
+      summary: 'Updates the information about the specified trip',
+      tags: ['trip'],
       body: z.object({
         destination: z.string().min(4).optional(),
         starts_at: z.coerce.date(),

@@ -8,6 +8,8 @@ import { z } from 'zod';
 export async function createActivity(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/trips/:tripId/activities', {
     schema: {
+      summary: 'Creates a new activity in the trip',
+      tags: ['activity'],
       body: z.object({
         title: z.string().min(3),
         occurs_at: z.coerce.date()

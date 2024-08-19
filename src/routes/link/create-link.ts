@@ -7,6 +7,8 @@ import { z } from 'zod';
 export async function createLink(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/trips/:tripId/links', {
     schema: {
+      summary: 'Creates a new link in the trip',
+      tags: ['link'],
       body: z.object({
         title: z.string().min(3),
         url: z.string().url()

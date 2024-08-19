@@ -11,6 +11,11 @@ import { z } from 'zod';
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get('/trips/:tripId/confirm', {
     schema: {
+      summary: 'Confirms the creation of the trip',
+      tags: ['trip'],
+      description: 'There is no response, the client will be redirected to the web url',
+      // hide: true,
+      response: {},
       params: z.object({
         tripId: z.string().uuid(),
       })

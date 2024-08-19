@@ -7,6 +7,8 @@ import { z } from 'zod';
 export async function getTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get('/trips/:tripId', {
     schema: {
+      summary: 'Gets a specific trip',
+      tags: ['trip'],
       params: z.object({
         tripId: z.string().uuid()
       })

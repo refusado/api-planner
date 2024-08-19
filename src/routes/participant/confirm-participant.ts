@@ -8,6 +8,11 @@ import { z } from 'zod';
 export async function confirmParticipant(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get('/participants/:participantId/confirm', {
     schema: {
+      summary: 'Confirms the participant\'s attendance',
+      tags: ['participant'],
+      description: 'There is no response, the client will be redirected to the web url',
+      // hide: true,
+      response: {},
       params: z.object({
         participantId: z.string().uuid()
       })

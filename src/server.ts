@@ -5,7 +5,7 @@ import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod
 import env from '@/env';
 import errorHandler from '@/error-handler';
 import routes from '@/routes';
-import createDocumentation from '@/swagger';
+import createDocumentation from '@/docs';
 
 const app = fastify();
 app.register(cors, {
