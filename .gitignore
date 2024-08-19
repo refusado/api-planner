@@ -1,6 +1,6 @@
 node_modules
 .env
 dist
-prisma/migrations
 prisma/dev.db
+prisma/generated
 todo.md

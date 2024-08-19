@@ -35,5 +35,6 @@ export default ((error, request, reply) => {
   }
 
   // uncaught errors
+  console.log(error);
   return reply.status(500).send({ message: 'Internal server error' });
 }) satisfies FastifyInstance['errorHandler'];
